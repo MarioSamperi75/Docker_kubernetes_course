@@ -66,9 +66,17 @@ app.get('/people', async (req, res) => {
     res.status(500).json({ message: 'Something went wrong.' });
   }
 });
-//you have to install locally mongo db
+// you have to install locally mongo db
+// use host.docker.internal => communication container:local host
+// use containers ip address => communication container:container
+// check mongo ip container address with the command docker container inspect containerName;
+// use containers name = communication container:container when both are part of the same network
+
+
 mongoose.connect(
-  'mongodb://host.docker.internal:27017/swfavorites',
+  //'mongodb://host.docker.internal:27017/swfavorites',
+  //'mongodb://172.17.0.3:27017/swfavorites',
+  'mongodb://mongodb:27017/swfavorites',
   { useNewUrlParser: true },
   (err) => {
     if (err) {
